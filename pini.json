@@ -1,0 +1,65 @@
+[
+  {
+    "ID": 1,
+    "Nome": "Residencial R1",
+    "Descricao": "",
+    "DescricaoCombo": "R.1 Residencial Popular (RPQ1)",
+    "Valor": 2087.78
+  },
+  {
+    "ID": 2,
+    "Nome": "Residencial R2",
+    "Descricao": null,
+    "DescricaoCombo": "R.2 Até 70,00 m²",
+    "Valor": 1915.97
+  },
+  {
+    "ID": 3,
+    "Nome": "Residencial R3",
+    "Descricao": null,
+    "DescricaoCombo": "R.3 De 70,01 m² até 300,00 m²",
+    "Valor": 2350.63
+  },
+  {
+    "ID": 4,
+    "Nome": "Residencial R4",
+    "Descricao": null,
+    "DescricaoCombo": "R.4 Acima de 300,01 m²",
+    "Valor": 2852.05
+  },
+  {
+    "ID": 5,
+    "Nome": "Comercial C1",
+    "Descricao": null,
+    "DescricaoCombo": "C.1 Prédio (CS - Normal)",
+    "Valor": 1964.72
+  },
+  {
+    "ID": 6,
+    "Nome": "Comercial C2",
+    "Descricao": null,
+    "DescricaoCombo": "C.2 Prédio (CA - Normal)",
+    "Valor": 2267.68
+  },
+  {
+    "ID": 7,
+    "Nome": "Comercial C3",
+    "Descricao": null,
+    "DescricaoCombo": "C.3 Prédio (CS - Alto)",
+    "Valor": 2113.23
+  },
+  {
+    "ID": 8,
+    "Nome": "Comercial C4",
+    "Descricao": null,
+    "DescricaoCombo": "C.4 Prédio (CA - Alto)",
+    "Valor": 2396.24
+  },
+  {
+    "ID": 9,
+    "Nome": "Industrial",
+    "Descricao": null,
+    "DescricaoCombo": "I.1 Industrial - Galpão de uso geral",
+    "Valor": 1117.18
+  }
+]
