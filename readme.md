@@ -9,7 +9,7 @@
 
 Para iniciar um projeto Node.js com JavaScript na WSL 2 (Windows Subsystem for Linux) usando Redis e seguindo a estrutura de pastas com um arquivo index.js.
 Consulte o código-fonte  no repositório:\
-**https://github.com/ruthmira-1risjc/crud.git**
+**https://github.com/ruthmira-1risjc/crud-redis.git**
 
 ## Requisitos
 
@@ -123,7 +123,7 @@ adicionarAoRedis();
 ```
 
 ## CRUD
-### Listar
+### Read - LRANGE - Listar
 ``` JavaScript
 async function listarDoRedis() {
   const client = createClient();
@@ -154,10 +154,78 @@ async function listarDoRedis() {
 listarDoRedis();
 ```
 
-### Editar 
-### Atualizar
+### Editar - LRANGE/LREM/RPUSH - Upgrade 
+```JavaScript
+async function atualizarItem(updatedItem) {
+  const client = createClient();
 
-### Remover
+  // Conectar ao servidor Redis
+  await client.connect();
+
+  client.on('error', err => console.log('Redis Client Error', err));
+
+  try {
+    const redisListName = 'pini';
+
+    // Obter todos os valores da lista
+    const values = await client.LRANGE(redisListName, 0, -1);
+
+    // Procurar o item a ser atualizado pelo ID
+    for (const value of values) {
+      const parsedValue = JSON.parse(value);
+      if (parsedValue.ID === updatedItem.ID) {
+        // Remover o item antigo
+        await client.LREM(redisListName, 0, value);
+        // Adicionar o item atualizado
+        const updatedValue = JSON.stringify(updatedItem);
+        await client.RPUSH(redisListName, updatedValue);
+        console.log(`Item com ID ${updatedItem.ID} atualizado no Redis.`);
+        return;
+      }
+    }
+
+    console.log(`Item com ID ${updatedItem.ID} não encontrado no Redis.`);
+  } catch (error) {
+    console.error('Erro ao atualizar item no Redis:', error);
+  } finally {
+    // Fechar a conexão com o Redis
+    await client.quit();
+  }
+}
+
+atualizarItem({ "ID":1,"Nome":"Item Atualizado","Descricao":"Atualizado","DescricaoCombo":"R.1 Até 85,00 m²","Valor":3000.00 });
+
+```
+### Adicionar - RPUSH - Creat
+```JavaScript
+async function adicionarItem(item) {
+  const client = createClient();
+
+  // Conectar ao servidor Redis
+  await client.connect();
+
+  client.on('error', err => console.log('Redis Client Error', err));
+
+  try {
+    // Nome da lista no Redis
+    const redisListName = 'pini';
+
+    // Adicionar o novo item ao Redis usando o método RPUSH
+    const value = JSON.stringify(item);
+    await client.RPUSH(redisListName, value);
+
+    console.log('Novo item adicionado à lista no Redis com sucesso.');
+  } catch (error) {
+    console.error('Erro ao adicionar novo item ao Redis:', error);
+  } finally {
+    // Fechar a conexão com o Redis
+    await client.quit();
+  }
+}
+adicionarItem({"ID":10,"Nome":"Residencial R3","Descricao":null,"DescricaoCombo":"R.3 Até 75,00 m²","Valor":1485.97});
+```
+
+### Remover - LREM - Delete
 ```JavaScript
 async function deletarChaveDoRedis() {
   const client = createClient();
@@ -197,5 +265,54 @@ deletarChaveDoRedis();
 ```
 
 ## Salvando os resultados
+``` JavaScript
+// Função para salvar a lista em um novo arquivo JSON em uma pasta específica
+async function salvarListaEmNovaPasta(redisListName, nomeArquivo, pastaDestino) {
+  const client = createClient();
+
+  return new Promise(async (resolve, reject) => {
+    // Conectar ao servidor Redis
+    await client.connect();
+
+    client.on('error', err => {
+      console.log('Redis Client Error', err);
+      reject(err);
+    });
+
+    try {
+      // Obter valores da lista no Redis
+      const values = await client.LRANGE(redisListName, 0, -1);
+
+      // Cria a pasta de destino se não existir
+      if (!fs.existsSync(pastaDestino)) {
+        fs.mkdirSync(pastaDestino, { recursive: true });
+      }
+
+      const caminhoCompleto = path.join(pastaDestino, `${nomeArquivo}.json`);
+      const jsonLista = JSON.stringify(values.map(value => JSON.parse(value)), null, 2);
+      fs.writeFileSync(caminhoCompleto, jsonLista);
+      console.log(`Lista salva em ${caminhoCompleto}`);
+      resolve();
+    } catch (erro) {
+      console.error('Erro ao salvar o arquivo JSON:', erro);
+      reject(erro);
+    } finally {
+      // Fechar a conexão com o Redis
+      await client.quit();
+    }
+  });
+}
+// Função para executar todas as operações desejadas
+async function adicionarAoRedisEsalvar() {
+  await salvarListaEmNovaPasta('pini', 'ListaPiniRedis', './resultado');
+  await salvarListaEmNovaPasta('pini', 'ListaPini', './resultado');
+  await salvarListaEmNovaPasta('pini', 'ListaPiniAdicionado', './resultado');
+  await salvarListaEmNovaPasta('pini', 'ListaPiniAtualizado', './resultado');
+  await salvarListaEmNovaPasta('pini', 'ListaPiniDeletado', './resultado');
+}
+
+// Chamar a função que realiza todas as operações
+adicionarAoRedisEsalvar();
+```
 
 ## Conhecimentos Adquiridos

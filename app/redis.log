@@ -1,0 +1,16 @@
+25975:C 07 Mar 2024 08:56:32.154 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+25975:C 07 Mar 2024 08:56:32.154 * Redis version=7.2.4, bits=64, commit=00000000, modified=0, pid=25975, just started
+25975:C 07 Mar 2024 08:56:32.154 * Configuration loaded
+25975:M 07 Mar 2024 08:56:32.154 * monotonic clock: POSIX clock_gettime
+25975:M 07 Mar 2024 08:56:32.155 # Failed to write PID file: Permission denied
+25975:M 07 Mar 2024 08:56:32.155 * Running mode=standalone, port=6379.
+25975:M 07 Mar 2024 08:56:32.155 # Warning: Could not create server TCP listening socket 127.0.0.1:6379: bind: Address already in use
+25975:M 07 Mar 2024 08:56:32.155 # Failed listening on port 6379 (tcp), aborting.
+31815:C 07 Mar 2024 09:08:54.441 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+31815:C 07 Mar 2024 09:08:54.441 * Redis version=7.2.4, bits=64, commit=00000000, modified=0, pid=31815, just started
+31815:C 07 Mar 2024 09:08:54.441 * Configuration loaded
+31815:M 07 Mar 2024 09:08:54.441 * monotonic clock: POSIX clock_gettime
+31815:M 07 Mar 2024 09:08:54.442 # Failed to write PID file: Permission denied
+31815:M 07 Mar 2024 09:08:54.442 * Running mode=standalone, port=6379.
+31815:M 07 Mar 2024 09:08:54.442 # Warning: Could not create server TCP listening socket 127.0.0.1:6379: bind: Address already in use
+31815:M 07 Mar 2024 09:08:54.442 # Failed listening on port 6379 (tcp), aborting.
