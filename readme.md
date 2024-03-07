@@ -1,9 +1,9 @@
-
-
-### Dias 7 e 8 de março
+### Dias 7 e 8 de março 
 - Implementar um CRUD em javascript/nodejs utilizando redis. (funções: editar, atualizar, remover e listar)
 - Ao iniciar, o script deverá carregar um arquivo .json e armazenar os objetos em uma lista.
 - Salvar os resultados em uma pasta e escrever um pequeno relatório explicando o que foi aprendido e como executar o código.
+
+![Static Badge](https://img.shields.io/badge/build-Finalizado-brightgreen?style=for-the-badge&label=STATUS&labelColor=black)
 
 ## Instruções para Uso
 
@@ -316,3 +316,26 @@ adicionarAoRedisEsalvar();
 ```
 
 ## Conhecimentos Adquiridos
+
+O código em questão tem como objetivo principal realizar operações de manipulação de dados utilizando o banco de dados em memória Redis. Ele é estruturado em funções que abrangem desde a leitura e escrita de dados em arquivos JSON até operações avançadas no Redis, como adicionar, listar, atualizar e excluir elementos de uma lista.
+
+1. **RedisDataManager:**
+   - Este é o módulo central do código, encapsulando a lógica de manipulação de dados no Redis. Ele utiliza a biblioteca `redis` para criar um cliente Redis, conectando-se ao servidor.
+   - As funções `connect` e `disconnect` cuidam da abertura e fechamento da conexão com o Redis, garantindo uma prática segura e eficiente.
+   - Funções como `adicionarAoRedis`, `listarDoRedis`, `adicionarItem`, `atualizarItem`, `deletarChaveDoRedis` e `salvarListaEmNovaPasta` abstraem operações comuns no Redis, fornecendo métodos claros e reutilizáveis para adicionar, listar, atualizar, deletar e salvar dados.
+
+2. **Operações com o Arquivo JSON:**
+   - A função `adicionarAoRedis` inicia o processo lendo um arquivo JSON (`pini.json`) e transformando seus dados em objetos JavaScript.
+   - Em seguida, os objetos são armazenados no Redis como strings JSON utilizando a função `adicionarAoRedis` do `RedisDataManager`.
+
+3. **Operações Básicas no Redis:**
+   - Funções como `listarDoRedis`, `adicionarItem`, `atualizarItem` e `deletarChaveDoRedis` realizam operações básicas no Redis, como listar todos os elementos, adicionar novos elementos, atualizar elementos existentes e excluir elementos com base em condições específicas.
+
+4. **Persistência de Dados:**
+   - A função `salvarListaEmNovaPasta` persiste os dados presentes no Redis em um arquivo JSON, seguindo as melhores práticas ao criar uma pasta de destino se não existir e fornecendo uma estrutura legível e formatada para o arquivo.
+
+
+**Conclusão:**
+O `RedisDataManager` é uma classe ou módulo que facilita a interação com o Redis, ele oferece métodos para adicionar, recuperar e excluir dados no Redis. O código cria uma instância do `RedisDataManager`, ele define funções para adicionar e recuperar dados no Redis.
+Quando manipulamos dados em memória fica mais rápido do que acessar um banco de dados em disco.\
+Aqui optamos por manipular dados em memória antes de persisti-los permanentemente no Redis.
